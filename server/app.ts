@@ -4,6 +4,7 @@ export const app = express();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import {ErrorMiddleware} from "./middleware/error";
+import ErrorHandler from "./utils/ErrorHandler";
 
 
 app.use(express.json({limit: "50mb"}));
@@ -23,8 +24,7 @@ app.get("/test", (req:Request, res:Response, next:NextFunction) => {
 });
 
 app.all("*", (req:Request, res:Response, next:NextFunction) => {
-    const err = new Error(`Route ${req.originalUrl} not valid or doesnt exist`) as any;
-    err.statusCode = 404;
+    const err = new ErrorHandler(`Route ${req.originalUrl} not valid or doesnt exist`, 404) as any;
     next(err);
 });
 

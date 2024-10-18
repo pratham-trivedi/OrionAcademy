@@ -12,7 +12,6 @@ const connectDB = async () => {
         console.log(err.message);
         console.log("Retrying...");
         setTimeout(connectDB, 5000);
-
     }
 }
 
